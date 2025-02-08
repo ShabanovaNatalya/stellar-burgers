@@ -2,7 +2,7 @@ import { FC, memo } from 'react';
 
 import styles from './modal.module.css';
 
-import { CloseIcon } from '@zlden/react-developer-burger-ui-components';
+import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { TModalUIProps } from './type';
 import { ModalOverlayUI } from '@ui';
 

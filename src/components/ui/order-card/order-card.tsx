@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import {
   CurrencyIcon,
   FormattedDate
-} from '@zlden/react-developer-burger-ui-components';
+} from '@ya.praktikum/react-developer-burger-ui-components';
 
 import styles from './order-card.module.css';
 
