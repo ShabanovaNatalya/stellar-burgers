@@ -3,7 +3,7 @@ import {
   Input,
   Button,
   PasswordInput
-} from '@zlden/react-developer-burger-ui-components';
+} from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from '../common.module.css';
 import { Link } from 'react-router-dom';
 import { RegisterUIProps } from './type';

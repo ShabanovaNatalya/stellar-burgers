@@ -6,7 +6,7 @@ import {
   Counter,
   CurrencyIcon,
   AddButton
-} from '@zlden/react-developer-burger-ui-components';
+} from '@ya.praktikum/react-developer-burger-ui-components';
 
 import { TBurgerIngredientUIProps } from './type';
 
