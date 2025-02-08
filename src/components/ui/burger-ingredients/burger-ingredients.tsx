@@ -1,5 +1,5 @@
 import React, { FC, memo } from 'react';
-import { Tab } from '@zlden/react-developer-burger-ui-components';
+import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 
 import styles from './burger-ingredients.module.css';
 import { BurgerIngredientsUIProps } from './type';

@@ -3,7 +3,7 @@ import {
   Button,
   ConstructorElement,
   CurrencyIcon
-} from '@zlden/react-developer-burger-ui-components';
+} from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './burger-constructor.module.css';
 import { BurgerConstructorUIProps } from './type';
 import { TConstructorIngredient } from '@utils-types';

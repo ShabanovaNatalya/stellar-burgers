@@ -38,3 +38,18 @@ export type TUser = {
 };
 
 export type TTabMode = 'bun' | 'sauce' | 'main';
+
+export type TUserBurger = {
+  bun: {
+    name: string;
+    price: number;
+    image: string;
+  };
+  ingredients: TConstructorIngredient[];
+};
+
+// export type TUserBurger = {
+//   buns: string;
+//   mains: string[];
+//   sauces: string;
+// };
