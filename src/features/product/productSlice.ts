@@ -1,4 +1,4 @@
-import { getFeedsApi, getIngredientsApi, TFeedsResponse } from '@api';
+import { getFeedsApi, getIngredientsApi } from '@api';
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { TIngredient, TOrder, TOrdersData, TUserBurger } from '@utils-types';
 
@@ -25,7 +25,7 @@ export interface ProductState {
   userBurger: TUserBurger;
   isIngredientsLoading: boolean;
   isOrdersListsLoading: boolean;
-  error: string | null;
+  error: string | undefined;
 }
 
 export const initialState: ProductState = {
@@ -40,33 +40,44 @@ export const initialState: ProductState = {
   },
   ordersData: null,
   userBurger: {
-    bun: {
-      name: '',
-      price: 0,
-      image: ''
-    },
+    bun: undefined,
     ingredients: []
   },
   isIngredientsLoading: false,
   isOrdersListsLoading: false,
-  error: null
+  error: ''
 };
 
 export const productSlice = createSlice({
   name: 'product',
   initialState,
   reducers: {
-    init: (state) => {}
+    init: (state) => {},
+    handleAddIngredient: (state, action) => {
+      // if (action.type === 'bun') {
+      //   state.userBurger.bun.name = action.payload.name;
+      //   state.userBurger.bun.image = action.payload.image;
+      //   state.userBurger.bun.price = action.payload.price;
+      // } else if (action.type === 'main') {
+      //   state.userBurger.bun.image = action.payload.image;
+      // } else if (action.type === 'sauce') {
+      //   state.userBurger.ingredients = [
+      //     ...state.userBurger.ingredients,
+      //     action.payload
+      //   ];
+      // }
+    }
   },
   extraReducers: (builder) => {
     builder
+      // Лист ингридиентов
       .addCase(loadIngredientList.pending, (state) => {
-        state.error = null;
+        state.error = '';
         state.isIngredientsLoading = true;
       })
       .addCase(loadIngredientList.rejected, (state, action) => {
         state.isIngredientsLoading = false;
-        // state.error = action.error.message;
+        state.error = action.error.message;
       })
       .addCase(loadIngredientList.fulfilled, (state, action) => {
         state.isIngredientsLoading = false;
@@ -82,9 +93,10 @@ export const productSlice = createSlice({
           }
         });
       })
+      // Лист заказов
       .addCase(loadOrders.pending, (state) => {
         state.isOrdersListsLoading = true;
-        state.error = null;
+        state.error = '';
       })
       .addCase(loadOrders.rejected, (state, action) => {
         state.isOrdersListsLoading = false;
@@ -100,15 +112,16 @@ export const productSlice = createSlice({
   selectors: {
     getIngredientList: (state) => state.ingredientList,
     getOrderData: (state) => state.ordersData,
+    getOrdersList: (state) => state.ordersList,
     getIsIngredientsLoading: (state) => state.isIngredientsLoading
   }
 });
 
-export const { init } = productSlice.actions;
+export const { init, handleAddIngredient } = productSlice.actions;
 
 export const {
   getIngredientList,
-  // getOrder,
   getOrderData,
-  getIsIngredientsLoading
+  getIsIngredientsLoading,
+  getOrdersList
 } = productSlice.selectors;

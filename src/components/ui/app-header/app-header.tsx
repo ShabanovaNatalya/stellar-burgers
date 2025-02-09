@@ -14,28 +14,30 @@ export const AppHeaderUI: FC<TAppHeaderUIProps> = ({ userName }) => (
     <nav className={`${styles.menu} p-4`}>
       <div className={styles.menu_part_left}>
         <>
-          {/* <NavLink to='/'className={}> */}
-          <BurgerIcon type={'primary'} />
-          <p className='text text_type_main-default ml-2 mr-10'>Конструктор</p>
-          {/* </NavLink> */}
+          <NavLink to='/' className={`${styles.link}`}>
+            <BurgerIcon type={'primary'} />
+            <p className='text text_type_main-default ml-2 mr-10'>
+              Конструктор
+            </p>
+          </NavLink>
         </>
         <>
-          {/* <NavLink to='/'> */}
-          <ListIcon type={'primary'} />
-          <p className='text text_type_main-default ml-2'>Лента заказов</p>
-          {/* </NavLink> */}
+          <NavLink to='/feed' className={`${styles.link}`}>
+            <ListIcon type={'primary'} />
+            <p className='text text_type_main-default ml-2'>Лента заказов</p>
+          </NavLink>
         </>
       </div>
       <div className={styles.logo}>
         <Logo className='' />
       </div>
       <div className={styles.link_position_last}>
-        {/* <NavLink to='/profile'> */}
-        <ProfileIcon type={'primary'} />
-        <p className='text text_type_main-default ml-2'>
-          {userName || 'Личный кабинет'}
-        </p>
-        {/* </NavLink> */}
+        <NavLink to='/profile' className={`${styles.link}`}>
+          <ProfileIcon type={'primary'} />
+          <p className='text text_type_main-default ml-2'>
+            {userName || 'Личный кабинет'}
+          </p>
+        </NavLink>
       </div>
     </nav>
   </header>
