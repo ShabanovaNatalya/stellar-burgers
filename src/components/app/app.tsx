@@ -13,21 +13,35 @@ import {
 } from '@pages';
 import '../../index.css';
 import styles from './app.module.css';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import {
+  Routes,
+  Route,
+  useLocation,
+  useNavigate,
+  useMatch
+} from 'react-router-dom';
 import { AppHeader, IngredientDetails, Modal, OrderInfo } from '@components';
 import { ProtectedRoute } from '../ProtectedRoute';
-import { ROLE } from 'src/constants';
-import { useDispatch, AppDispatch } from '../../services/store';
+import { useDispatch } from '../../services/store';
 import {
   loadIngredientList,
   loadOrders
 } from '../../features/product/productSlice';
+import { checkUserAuth } from '../../features/user/userSlice';
 
 function App() {
+  const location = useLocation();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const locationState = location.state as { background?: Location };
+  const background = locationState && locationState.background;
+  const orderNumber = useMatch('/feed/:number')?.params.number;
+  const onCloseModal = () => navigate(-1);
+
   useEffect(() => {
     dispatch(loadIngredientList());
     dispatch(loadOrders());
+    dispatch(checkUserAuth());
 
     //   const token = localStorage.getItem('token');
     //   if (token) {
@@ -35,20 +49,19 @@ function App() {
     //   } else {
     //     // dispatch(init());
     //   }
-  }, []);
+  }, [dispatch]);
 
   return (
     <>
       <div className={styles.app}>
         <AppHeader />
-        <Routes>
+        <Routes location={background || location}>
           <Route path='/' element={<ConstructorPage />} />
           <Route path='/feed' element={<Feed />} />
-
           <Route
             path='/login'
             element={
-              <ProtectedRoute>
+              <ProtectedRoute onlyUnAuth>
                 <Login />
               </ProtectedRoute>
             }
@@ -56,7 +69,7 @@ function App() {
           <Route
             path='/register'
             element={
-              <ProtectedRoute>
+              <ProtectedRoute onlyUnAuth>
                 <Register />
               </ProtectedRoute>
             }
@@ -64,7 +77,7 @@ function App() {
           <Route
             path='/forgot-password'
             element={
-              <ProtectedRoute>
+              <ProtectedRoute onlyUnAuth>
                 <ForgotPassword />
               </ProtectedRoute>
             }
@@ -72,7 +85,7 @@ function App() {
           <Route
             path='/reset-password'
             element={
-              <ProtectedRoute>
+              <ProtectedRoute onlyUnAuth>
                 <ResetPassword />
               </ProtectedRoute>
             }
@@ -93,39 +106,78 @@ function App() {
               </ProtectedRoute>
             }
           />
-          <Route path='*' element={<NotFound404 />} />
-        </Routes>
-
-        {/* <Routes>
-          <Route
-            path='/feed/:number'
-            element={
-              <Modal
-                title={'Детали ингредиента'}
-                onClose={}
-                children={<OrderInfo />}
-              ></Modal>
-            }
-          />
           <Route
             path='/ingredients/:id'
             element={
-              <Modal
-                title={'Детали ингредиента'}
-                onClose={}
-                children={<IngredientDetails />}
-              ></Modal>
+              <div className={styles.detailPageWrap}>
+                <p
+                  className={`text text_type_main-large ${styles.detailHeader}`}
+                >
+                  Детали ингредиента
+                </p>
+                <IngredientDetails />
+              </div>
             }
           />
           <Route
-            path='/profile/orders/:number'
+            path='/feed/:number'
             element={
-              <ProtectedRoute>
-                <Modal children={<OrderInfo />}></Modal>
-              </ProtectedRoute>
+              <div className={styles.detailPageWrap}>
+                <p
+                  className={`text text_type_digits-default ${styles.detailHeader}`}
+                >
+                  #{orderNumber && orderNumber.padStart(6, '0')}
+                </p>
+                <OrderInfo />
+              </div>
             }
           />
-        </Routes> */}
+
+          <Route
+            path='*'
+            element={
+              <div className={styles.detailPageWrap}>
+                <NotFound404 />
+              </div>
+            }
+          />
+        </Routes>
+
+        {background && (
+          <Routes>
+            <Route
+              path='/feed/:number'
+              element={
+                <Modal title={''} onClose={onCloseModal}>
+                  <p
+                    className={`text text_type_digits-default ${styles.header}`}
+                  >
+                    #{orderNumber && orderNumber.padStart(6, '0')}
+                  </p>
+                  <OrderInfo />
+                </Modal>
+              }
+            />
+            <Route
+              path='/ingredients/:id'
+              element={
+                <Modal title={'Детали ингредиента'} onClose={onCloseModal}>
+                  <IngredientDetails />
+                </Modal>
+              }
+            />
+            <Route
+              path='/profile/orders/:number'
+              element={
+                <ProtectedRoute>
+                  <Modal title={'Детали заказа'} onClose={onCloseModal}>
+                    <IngredientDetails />
+                  </Modal>
+                </ProtectedRoute>
+              }
+            />
+          </Routes>
+        )}
       </div>
     </>
   );

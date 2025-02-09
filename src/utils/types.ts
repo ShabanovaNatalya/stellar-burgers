@@ -40,11 +40,13 @@ export type TUser = {
 export type TTabMode = 'bun' | 'sauce' | 'main';
 
 export type TUserBurger = {
-  bun: {
-    name: string;
-    price: number;
-    image: string;
-  };
+  bun:
+    | {
+        name: string;
+        price: number;
+        image: string;
+      }
+    | undefined;
   ingredients: TConstructorIngredient[];
 };
 
@@ -53,3 +55,9 @@ export type TUserBurger = {
 //   mains: string[];
 //   sauces: string;
 // };
+export const enum RequestStatus {
+  Idle = 'Idle',
+  Loading = 'Loading',
+  Success = 'Success',
+  Failed = 'Failed'
+}
