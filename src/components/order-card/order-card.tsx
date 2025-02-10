@@ -13,7 +13,7 @@ export const OrderCard: FC<OrderCardProps> = memo(({ order }) => {
 
   /** TODO: взять переменную из стора */
   const ingredients: TIngredient[] = useSelector(
-    (store) => store.product.ingredientList
+    (store) => store.ingredients.ingredientList
   );
 
   const orderInfo = useMemo(() => {

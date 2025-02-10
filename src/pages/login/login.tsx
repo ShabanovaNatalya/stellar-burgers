@@ -1,7 +1,10 @@
 import { FC, SyntheticEvent, useEffect, useState } from 'react';
 import { LoginUI } from '@ui-pages';
 import { useDispatch, useSelector } from '../../services/store';
-import { getIsAuthChecked, loginUser } from '../../features/user/userSlice';
+import {
+  getIsAuthChecked,
+  loginUser
+} from '../../services/slices/user/userSlice';
 
 export const Login: FC = () => {
   const dispatch = useDispatch();

@@ -7,9 +7,9 @@ import { useSelector } from '../../services/store';
 
 export const BurgerIngredients: FC = () => {
   /** TODO: взять переменные из стора */
-  const buns = useSelector((store) => store.product.buns);
-  const mains = useSelector((store) => store.product.mains);
-  const sauces = useSelector((store) => store.product.sauces);
+  const buns = useSelector((store) => store.ingredients.buns);
+  const mains = useSelector((store) => store.ingredients.mains);
+  const sauces = useSelector((store) => store.ingredients.sauces);
 
   const [currentTab, setCurrentTab] = useState<TTabMode>('bun');
   const titleBunRef = useRef<HTMLHeadingElement>(null);
