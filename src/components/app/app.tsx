@@ -23,11 +23,9 @@ import {
 import { AppHeader, IngredientDetails, Modal, OrderInfo } from '@components';
 import { ProtectedRoute } from '../ProtectedRoute';
 import { useDispatch } from '../../services/store';
-import {
-  loadIngredientList,
-  loadOrders
-} from '../../features/product/productSlice';
-import { checkUserAuth } from '../../features/user/userSlice';
+import { loadIngredientList } from '../../services/slices/productSlice';
+import { checkUserAuth } from '../../services/slices/user/userSlice';
+import { loadFeeds } from '../../services/slices/feed/feedSlices';
 
 function App() {
   const location = useLocation();
@@ -40,7 +38,7 @@ function App() {
 
   useEffect(() => {
     dispatch(loadIngredientList());
-    dispatch(loadOrders());
+    dispatch(loadFeeds());
     dispatch(checkUserAuth());
 
     //   const token = localStorage.getItem('token');

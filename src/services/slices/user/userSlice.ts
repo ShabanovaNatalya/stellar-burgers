@@ -9,12 +9,12 @@ import {
   TLoginData,
   TRefreshResponse,
   TRegisterData
-} from './../../utils/burger-api';
+} from '../../../utils/burger-api';
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
 import { RequestStatus, TUser } from '@utils-types';
 import { loginUserApi } from '@api';
-import { setCookie, getCookie } from '../../utils/cookie';
+import { setCookie, getCookie } from '../../../utils/cookie';
 
 // export const getUserThunk = createAsyncThunk(
 //   'users/getUser',

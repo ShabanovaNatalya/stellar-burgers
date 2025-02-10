@@ -3,16 +3,14 @@ import { FeedUI } from '@ui-pages';
 import { TOrder } from '@utils-types';
 import { FC } from 'react';
 import { AppDispatch, useDispatch, useSelector } from '../../services/store';
-import { loadOrders } from '../../features/product/productSlice';
+import { loadFeeds } from '../../services/slices/feed/feedSlices';
 
 export const Feed: FC = () => {
   const dispatch: AppDispatch = useDispatch();
-  /** TODO: взять переменную из стора */
-  const orders: TOrder[] = useSelector((store) => store.product.ordersList);
+  const orders: TOrder[] = useSelector((store) => store.feed.feedList);
 
   const handleLoadOrders = () => {
-    dispatch(loadOrders());
-    console.log(1);
+    dispatch(loadFeeds());
   };
 
   if (!orders.length) {
