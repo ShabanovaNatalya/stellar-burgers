@@ -3,7 +3,10 @@ import { Navigate, useLocation } from 'react-router-dom';
 import store, { RootState, useSelector } from '../../services/store';
 import { Preloader } from '@ui';
 import { TUser } from '@utils-types';
-import { getIsAuthChecked, getUser } from '../../features/user/userSlice';
+import {
+  getIsAuthChecked,
+  getUser
+} from '../../services/slices/user/userSlice';
 
 interface ProtectedRouteProps {
   children: ReactElement;
