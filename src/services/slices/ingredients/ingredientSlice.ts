@@ -31,18 +31,21 @@ export const ingredientsSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(loadIngredientList.pending, (state) => {
-        state.error = '';
-        state.isIngredientsLoading = true;
-      })
-      .addCase(loadIngredientList.rejected, (state, action) => {
-        state.isIngredientsLoading = false;
-        state.error = action.error.message;
-      })
+      // .addCase(loadIngredientList.pending, (state) => {
+      //   state.error = '';
+      //   state.isIngredientsLoading = true;
+      // })
+      // .addCase(loadIngredientList.rejected, (state, action) => {
+      //   state.isIngredientsLoading = false;
+      //   state.error = action.error.message;
+      // })
       .addCase(loadIngredientList.fulfilled, (state, action) => {
         state.isIngredientsLoading = false;
+        state.buns = [];
+        state.mains = [];
+        state.sauces = [];
         state.ingredientList = action.payload;
-        state.ingredientList.map((item: TIngredient) => {
+        action.payload.map((item: TIngredient) => {
           if (item.type === 'bun') {
             state.buns = [...state.buns, item];
           } else if (item.type === 'main') {

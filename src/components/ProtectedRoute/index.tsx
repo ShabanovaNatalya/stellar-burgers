@@ -25,12 +25,12 @@ export const ProtectedRoute = ({
     return <Preloader />;
   }
 
-  if (onlyUnAuth && user) {
+  if (isAuthChecked && user) {
     console.log('NAVIGATE FROM LOGIN TO INDEX');
     return <Navigate replace to={'/'} />;
   }
 
-  if (!onlyUnAuth && !user) {
+  if (!isAuthChecked && !user) {
     console.log('NAVIGATE FROM PAGE TO LOGIN');
     return <Navigate replace to={'/login'} />;
   }

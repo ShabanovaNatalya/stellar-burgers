@@ -31,7 +31,10 @@ export const initialState: ProductState = {
 export const productSlice = createSlice({
   name: 'product',
   initialState,
-  reducers: {},
+  reducers: {
+    handleAddIngredient: (state, action) => {
+    }
+  },
   extraReducers: (builder) => {
     builder
       .addCase(orderBurger.pending, (state) => {
