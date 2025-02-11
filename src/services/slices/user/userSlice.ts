@@ -1,5 +1,4 @@
 import {
-  fetchWithRefresh,
   forgotPasswordApi,
   logoutApi,
   refreshToken,
@@ -105,6 +104,7 @@ export const userSlice = createSlice({
       // Проверка
       .addCase(checkUserAuth.fulfilled, (state, action) => {
         state.requestStatus = RequestStatus.Success;
+        state.isAuthChecked = true;
       })
 
       // Вход

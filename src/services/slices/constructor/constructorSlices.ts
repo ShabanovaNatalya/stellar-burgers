@@ -1,48 +1,60 @@
-import { getFeedsApi, getIngredientsApi } from '@api';
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { TIngredient, TOrder, TOrdersData, TUserBurger } from '@utils-types';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { v4 as uuid } from 'uuid';
+import { TConstructorIngredient, TIngredient } from '@utils-types';
 
-export const loadIngredientList = createAsyncThunk(
-  'ingredients/fetch',
-  async () => getIngredientsApi()
-);
-
-export interface ProductState {
-  userBurger: TUserBurger;
-
-  error: string | undefined;
+export interface ConstructorState {
+  bun: TConstructorIngredient | null;
+  ingredients: TConstructorIngredient[];
 }
 
-export const initialState: ProductState = {
-  userBurger: {
-    bun: undefined,
-    ingredients: []
-  },
-  error: ''
+export const initialState: ConstructorState = {
+  bun: null,
+  ingredients: []
 };
 
-export const productSlice = createSlice({
-  name: 'product',
+export const constructorSlices = createSlice({
+  name: 'constructorBurger',
   initialState,
   reducers: {
-    init: (state) => {},
-    handleAddIngredient: (state, action) => {
-      // if (action.type === 'bun') {
-      //   state.userBurger.bun.name = action.payload.name;
-      //   state.userBurger.bun.image = action.payload.image;
-      //   state.userBurger.bun.price = action.payload.price;
-      // } else if (action.type === 'main') {
-      //   state.userBurger.bun.image = action.payload.image;
-      // } else if (action.type === 'sauce') {
-      //   state.userBurger.ingredients = [
-      //     ...state.userBurger.ingredients,
-      //     action.payload
-      //   ];
-      // }
+    handleAddIngredient: {
+      reducer: (state, { payload }: PayloadAction<TConstructorIngredient>) => {
+        if (payload.type === 'bun') {
+          state.bun = payload;
+        } else {
+          state.ingredients.push(payload);
+        }
+      },
+      prepare: (ingredient: TIngredient) => ({
+        payload: { ...ingredient, id: uuid() }
+      })
+    },
+    handleDeleteIngredient: (
+      state,
+      { payload }: PayloadAction<TConstructorIngredient>
+    ) => {
+      if (payload.type === 'bun') {
+        state.bun = null;
+      } else {
+        state.ingredients = state.ingredients.filter(
+          (item: TConstructorIngredient) => {
+            if (item.id !== payload.id) {
+              return item;
+            }
+          }
+        );
+      }
     }
   },
   extraReducers: (builder) => {},
-  selectors: {}
+  selectors: {
+    getIsBurger: (state) => ({
+      bun: state.bun,
+      ingredients: state.ingredients
+    })
+  }
 });
 
-export const { init, handleAddIngredient } = productSlice.actions;
+export const { handleAddIngredient, handleDeleteIngredient } =
+  constructorSlices.actions;
+
+export const { getIsBurger } = constructorSlices.selectors;
