@@ -2,12 +2,11 @@ import { FC, useMemo } from 'react';
 import { TConstructorIngredient } from '@utils-types';
 import { BurgerConstructorUI } from '@ui';
 import { useSelector } from '../../services/store';
+import { getIsBurger } from '../../services/slices/constructor/constructorSlices';
 
 export const BurgerConstructor: FC = () => {
-  const constructorItems = useSelector((store) => store.product.userBurger);
-
+  const constructorItems = useSelector(getIsBurger);
   const orderRequest = false;
-
   const orderModalData = null;
 
   const onOrderClick = () => {

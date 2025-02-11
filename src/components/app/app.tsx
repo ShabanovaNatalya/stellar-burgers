@@ -23,7 +23,7 @@ import {
 import { AppHeader, IngredientDetails, Modal, OrderInfo } from '@components';
 import { ProtectedRoute } from '../ProtectedRoute';
 import { useDispatch } from '../../services/store';
-import { loadIngredientList } from '../../services/slices/productSlice';
+import { loadIngredientList } from '../../services/slices/ingredients/ingredientSlice';
 import { checkUserAuth } from '../../services/slices/user/userSlice';
 import { loadFeeds } from '../../services/slices/feed/feedSlices';
 
@@ -41,12 +41,12 @@ function App() {
     dispatch(loadFeeds());
     dispatch(checkUserAuth());
 
-    //   const token = localStorage.getItem('token');
-    //   if (token) {
-    //     // dispatch(getUserThunk({ token }));
-    //   } else {
-    //     // dispatch(init());
-    //   }
+    // const token = localStorage.getItem('token');
+    // if (token) {
+    //   dispatch(checkUserAuth({ token }));
+    // } else {
+    //   // dispatch(init());
+    // }
   }, [dispatch]);
 
   return (
