@@ -24,8 +24,9 @@ import { AppHeader, IngredientDetails, Modal, OrderInfo } from '@components';
 import { ProtectedRoute } from '../ProtectedRoute';
 import { useDispatch } from '../../services/store';
 import { loadIngredientList } from '../../services/slices/ingredients/ingredientSlice';
-import { checkUserAuth } from '../../services/slices/user/userSlice';
+import { checkUserAuth, init } from '../../services/slices/user/userSlice';
 import { loadFeeds } from '../../services/slices/feed/feedSlices';
+import { loadOrders } from '../../services/slices/orders/ordersSlices';
 
 function App() {
   const location = useLocation();
@@ -39,14 +40,15 @@ function App() {
   useEffect(() => {
     dispatch(loadIngredientList());
     dispatch(loadFeeds());
-    dispatch(checkUserAuth());
+    dispatch(loadOrders());
+    // dispatch(checkUserAuth());
 
-    // const token = localStorage.getItem('token');
-    // if (token) {
-    //   dispatch(checkUserAuth({ token }));
-    // } else {
-    //   // dispatch(init());
-    // }
+    const token = localStorage.getItem('refreshToken');
+    if (token) {
+      dispatch(checkUserAuth());
+    } else {
+      dispatch(init());
+    }
   }, [dispatch]);
 
   return (
@@ -59,7 +61,7 @@ function App() {
           <Route
             path='/login'
             element={
-              <ProtectedRoute onlyUnAuth>
+              <ProtectedRoute>
                 <Login />
               </ProtectedRoute>
             }
@@ -67,7 +69,7 @@ function App() {
           <Route
             path='/register'
             element={
-              <ProtectedRoute onlyUnAuth>
+              <ProtectedRoute>
                 <Register />
               </ProtectedRoute>
             }
@@ -75,7 +77,7 @@ function App() {
           <Route
             path='/forgot-password'
             element={
-              <ProtectedRoute onlyUnAuth>
+              <ProtectedRoute>
                 <ForgotPassword />
               </ProtectedRoute>
             }
@@ -83,7 +85,7 @@ function App() {
           <Route
             path='/reset-password'
             element={
-              <ProtectedRoute onlyUnAuth>
+              <ProtectedRoute>
                 <ResetPassword />
               </ProtectedRoute>
             }

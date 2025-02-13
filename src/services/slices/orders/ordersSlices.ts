@@ -34,14 +34,14 @@ export const ordersSlice = createSlice({
       })
       .addCase(loadOrders.fulfilled, (state, action) => {
         state.isOrdersListsLoading = false;
-        state.ordersList = action.payload;
+        if (action.payload) {
+          state.ordersList = action.payload;
+        }
       });
   },
-  selectors: {
-    getOrdersList: (state) => state.ordersList
-  }
+  selectors: {}
 });
 
 // export const {} = ordersSlice.actions;
 
-export const { getOrdersList } = ordersSlice.selectors;
+// export const {} = ordersSlice.selectors;
