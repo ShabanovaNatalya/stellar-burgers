@@ -1,38 +1,34 @@
 import { orderBurgerApi } from '@api';
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { TOrder, TUserBurger } from '@utils-types';
+import { TOrder } from '@utils-types';
 
 export const orderBurger = createAsyncThunk(
   'order/post',
   async (data: string[]) => orderBurgerApi(data)
 );
 
-export interface ProductState {
-  userBurger: TUserBurger;
-  ingredients: string[];
-  lastOrder: TOrder | undefined;
+export interface OrderState {
+  orderModalData: TOrder | null;
   lastOrderName: string;
   isOrderLoading: boolean;
+  orderRequest: boolean;
   error: string | undefined;
 }
 
-export const initialState: ProductState = {
-  userBurger: {
-    bun: undefined,
-    ingredients: []
-  },
-  lastOrder: undefined,
+export const initialState: OrderState = {
+  orderModalData: null,
   lastOrderName: '',
   isOrderLoading: false,
-  ingredients: [],
+  orderRequest: false,
   error: ''
 };
 
-export const productSlice = createSlice({
-  name: 'product',
+export const orderSlice = createSlice({
+  name: 'order',
   initialState,
   reducers: {
-    handleAddIngredient: (state, action) => {
+    handleCloseOrderModal: (state) => {
+      state.orderModalData = null;
     }
   },
   extraReducers: (builder) => {
@@ -47,11 +43,12 @@ export const productSlice = createSlice({
       })
       .addCase(orderBurger.fulfilled, (state, action) => {
         state.isOrderLoading = false;
-        state.lastOrder = action.payload.order;
+        state.orderRequest = true;
+        state.orderModalData = action.payload.order;
         state.lastOrderName = action.payload.name;
       });
   },
   selectors: {}
 });
 
-// export const { } = productSlice.actions;
+export const { handleCloseOrderModal } = orderSlice.actions;

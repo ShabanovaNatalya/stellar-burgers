@@ -9,28 +9,19 @@ import {
 } from '../../services/slices/user/userSlice';
 
 interface ProtectedRouteProps {
-  children: ReactElement;
-  onlyUnAuth?: boolean;
+  children: React.ReactNode;
 }
 
-export const ProtectedRoute = ({
-  children,
-  onlyUnAuth
-}: ProtectedRouteProps) => {
+export const ProtectedRoute = ({ children }: ProtectedRouteProps) => {
   const user = useSelector(getUser);
   const isAuthChecked = useSelector(getIsAuthChecked);
 
+  // if (isAuthChecked && user.name) {
+  //   console.log('NAVIGATE FROM /');
+  //   return <Navigate replace to={'/'} />;
+  // }
+
   if (!isAuthChecked) {
-    console.log('WAIT USER CHECKOUT');
-    return <Preloader />;
-  }
-
-  if (isAuthChecked && user) {
-    console.log('NAVIGATE FROM LOGIN TO INDEX');
-    return <Navigate replace to={'/'} />;
-  }
-
-  if (!isAuthChecked && !user) {
     console.log('NAVIGATE FROM PAGE TO LOGIN');
     return <Navigate replace to={'/login'} />;
   }
