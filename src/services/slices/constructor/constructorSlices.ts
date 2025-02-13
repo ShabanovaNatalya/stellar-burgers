@@ -21,7 +21,7 @@ export const constructorSlices = createSlice({
         if (payload.type === 'bun') {
           state.bun = payload;
         } else {
-          state.ingredients.push(payload);
+          state.ingredients = [...state.ingredients, payload];
         }
       },
       prepare: (ingredient: TIngredient) => ({
@@ -32,6 +32,7 @@ export const constructorSlices = createSlice({
       state,
       { payload }: PayloadAction<TConstructorIngredient>
     ) => {
+      console.log(111);
       if (payload.type === 'bun') {
         state.bun = null;
       } else {
@@ -43,6 +44,34 @@ export const constructorSlices = createSlice({
           }
         );
       }
+    },
+    handleMoveUpIngredient: (
+      state,
+      { payload }: PayloadAction<TConstructorIngredient>
+    ) => {
+      const index = state.ingredients.findIndex(
+        (item) => item.id === payload.id
+      );
+      state.ingredients.splice(
+        index - 1,
+        2,
+        state.ingredients[index],
+        state.ingredients[index - 1]
+      );
+    },
+    handleMoveDownIngredient: (
+      state,
+      { payload }: PayloadAction<TConstructorIngredient>
+    ) => {
+      const index = state.ingredients.findIndex(
+        (item) => item.id === payload.id
+      );
+      state.ingredients.splice(
+        index + 1,
+        2,
+        state.ingredients[index + 1],
+        state.ingredients[index]
+      );
     }
   },
   extraReducers: (builder) => {},
@@ -54,7 +83,11 @@ export const constructorSlices = createSlice({
   }
 });
 
-export const { handleAddIngredient, handleDeleteIngredient } =
-  constructorSlices.actions;
+export const {
+  handleAddIngredient,
+  handleDeleteIngredient,
+  handleMoveUpIngredient,
+  handleMoveDownIngredient
+} = constructorSlices.actions;
 
 export const { getIsBurger } = constructorSlices.selectors;

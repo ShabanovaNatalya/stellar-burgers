@@ -13,7 +13,7 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
 import { RequestStatus, TUser } from '@utils-types';
 import { loginUserApi } from '@api';
-import { setCookie, getCookie } from '../../../utils/cookie';
+import { setCookie, getCookie, deleteCookie } from '../../../utils/cookie';
 
 // export const getUserThunk = createAsyncThunk(
 //   'users/getUser',
@@ -42,7 +42,7 @@ export const loginUser = createAsyncThunk(
 //   "accessToken": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3YTg5OTVjMTMzYWNkMDAxYmU0ZmIwMCIsImlhdCI6MTczOTExODE0NCwiZXhwIjoxNzM5MTE5MzQ0fQ.pUsmz7qQQjm-EPJ9reT4JfXTnFRFvze2MMWTOeqiMQU",
 //   "refreshToken": "7df3a511f41c05d2ac902b691f6786094e63aaf68c2074d4e34dd6bb16f9c3ba6ef769568d61e014",
 //   "user": {
-//       "email": "tashka131@mail.ru",987654321
+//       "email": tashka131@mail.ru,987654321
 //       "name": "Natalya"
 //   }
 // }
@@ -71,7 +71,12 @@ export const resetPassword = createAsyncThunk(
 
 export const logoutUser = createAsyncThunk(
   'user/logoutUser',
-  async () => await logoutApi().then((data) => data)
+  async () =>
+    await logoutApi().then((data) => {
+      localStorage.removeItem('refreshToken');
+      deleteCookie('accessToken');
+      return data;
+    })
 );
 
 export interface UserState {
@@ -82,7 +87,7 @@ export interface UserState {
 }
 
 const initialState: UserState = {
-  isAuthChecked: false,
+  isAuthChecked: true,
   userData: {
     name: '',
     email: ''
@@ -95,6 +100,7 @@ export const userSlice = createSlice({
   name: 'user',
   initialState,
   reducers: {
+    init: (state) => {},
     authCheck: (state) => {
       state.isAuthChecked = true;
     }
@@ -128,6 +134,7 @@ export const userSlice = createSlice({
           name: '',
           email: ''
         };
+
         state.isAuthChecked = false;
         state.requestStatus = RequestStatus.Success;
       })
@@ -147,6 +154,6 @@ export const userSlice = createSlice({
   }
 });
 
-export const { authCheck } = userSlice.actions;
+export const { init, authCheck } = userSlice.actions;
 
 export const { getUser, getIsAuthChecked } = userSlice.selectors;
