@@ -1,3 +1,4 @@
+import { ingredientsSlice } from './../ingredients/ingredientSlice';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { v4 as uuid } from 'uuid';
 import { TConstructorIngredient, TIngredient } from '@utils-types';
