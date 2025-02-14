@@ -3,7 +3,10 @@ import { TConstructorIngredient } from '@utils-types';
 import { BurgerConstructorUI } from '@ui';
 import { useDispatch, useSelector } from '../../services/store';
 import { getIsBurger } from '../../services/slices/constructor/constructorSlices';
-import { handleCloseOrderModal } from '../../services/slices/order/orderSlices';
+import {
+  handleCloseOrderModal,
+  orderBurger
+} from '../../services/slices/order/orderSlices';
 
 export const BurgerConstructor: FC = () => {
   const dispatch = useDispatch();
@@ -13,7 +16,17 @@ export const BurgerConstructor: FC = () => {
 
   const onOrderClick = () => {
     if (!constructorItems.bun || orderRequest) return;
+    dispatch(
+      orderBurger([
+        constructorItems.bun._id,
+        ...constructorItems.ingredients.map(
+          (item: TConstructorIngredient) => item._id
+        ),
+        constructorItems.bun._id
+      ])
+    );
   };
+
   const closeOrderModal = () => {
     dispatch(handleCloseOrderModal());
   };
