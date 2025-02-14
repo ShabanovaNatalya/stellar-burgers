@@ -41,7 +41,7 @@ function App() {
     dispatch(loadIngredientList());
     dispatch(loadFeeds());
     dispatch(loadOrders());
-    // dispatch(checkUserAuth());
+    dispatch(checkUserAuth());
 
     const token = localStorage.getItem('refreshToken');
     if (token) {

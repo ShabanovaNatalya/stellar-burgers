@@ -1,7 +1,6 @@
 import { orderBurgerApi } from '@api';
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { TOrder } from '@utils-types';
-
 export const orderBurger = createAsyncThunk(
   'order/post',
   async (data: string[]) => orderBurgerApi(data)
