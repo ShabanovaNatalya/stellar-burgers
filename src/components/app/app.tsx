@@ -21,7 +21,7 @@ import {
   useMatch
 } from 'react-router-dom';
 import { AppHeader, IngredientDetails, Modal, OrderInfo } from '@components';
-import { ProtectedRoute } from '../ProtectedRoute';
+import ProtectedRoute from '../ProtectedRoute/protectedRoute';
 import { useDispatch } from '../../services/store';
 import { loadIngredientList } from '../../services/slices/ingredients/ingredientSlice';
 import { checkUserAuth, init } from '../../services/slices/user/userSlice';
@@ -39,16 +39,7 @@ function App() {
 
   useEffect(() => {
     dispatch(loadIngredientList());
-    dispatch(loadFeeds());
-    dispatch(loadOrders());
     dispatch(checkUserAuth());
-
-    const token = localStorage.getItem('refreshToken');
-    if (token) {
-      dispatch(checkUserAuth());
-    } else {
-      dispatch(init());
-    }
   }, [dispatch]);
 
   return (
@@ -61,7 +52,7 @@ function App() {
           <Route
             path='/login'
             element={
-              <ProtectedRoute>
+              <ProtectedRoute onlyUnAuth>
                 <Login />
               </ProtectedRoute>
             }
@@ -69,7 +60,7 @@ function App() {
           <Route
             path='/register'
             element={
-              <ProtectedRoute>
+              <ProtectedRoute onlyUnAuth>
                 <Register />
               </ProtectedRoute>
             }
@@ -77,7 +68,7 @@ function App() {
           <Route
             path='/forgot-password'
             element={
-              <ProtectedRoute>
+              <ProtectedRoute onlyUnAuth>
                 <ForgotPassword />
               </ProtectedRoute>
             }
@@ -171,7 +162,7 @@ function App() {
               element={
                 <ProtectedRoute>
                   <Modal title={'Детали заказа'} onClose={onCloseModal}>
-                    <IngredientDetails />
+                    <OrderInfo />
                   </Modal>
                 </ProtectedRoute>
               }

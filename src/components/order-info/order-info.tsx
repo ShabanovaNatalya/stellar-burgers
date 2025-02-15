@@ -10,7 +10,9 @@ import { getFeedList } from '../../services/slices/feed/feedSlices';
 export const OrderInfo: FC = () => {
   /** TODO: взять переменные orderData и ingredients из стора */
 
-  const orderNumber = Number(useMatch('/feed/:number')?.params.number);
+  const orderNumber = useMatch('/feed/:number')
+    ? Number(useMatch('/feed/:number')?.params.number)
+    : Number(useMatch('/profile/orders/:number')?.params.number);
 
   const orderData = useSelector(getFeedList).find((item: TOrder) => {
     if (item.number === orderNumber) {

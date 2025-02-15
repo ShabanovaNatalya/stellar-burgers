@@ -9,7 +9,7 @@ import { BurgerConstructorUIProps } from './type';
 import { TConstructorIngredient } from '@utils-types';
 import { BurgerConstructorElement, Modal } from '@components';
 import { Preloader, OrderDetailsUI } from '@ui';
-import { Link, useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 
 export const BurgerConstructorUI: FC<BurgerConstructorUIProps> = ({
   constructorItems,
@@ -45,18 +45,13 @@ export const BurgerConstructorUI: FC<BurgerConstructorUIProps> = ({
           {constructorItems.ingredients.length > 0 ? (
             constructorItems.ingredients.map(
               (item: TConstructorIngredient, index: number) => (
-                <Link
-                  to={`/ingredients/${item._id}`}
-                  // state={{ modal: true }}
-                  state={{ backgroundLocation: location }}
-                  key={item.id}
-                >
+                <div className={`${styles.element_ingredients}`} key={item.id}>
                   <BurgerConstructorElement
                     ingredient={item}
                     index={index}
                     totalItems={constructorItems.ingredients.length}
                   />
-                </Link>
+                </div>
               )
             )
           ) : (
