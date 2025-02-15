@@ -1,6 +1,7 @@
 import { orderBurgerApi } from '@api';
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { TOrder } from '@utils-types';
+
 export const orderBurger = createAsyncThunk(
   'order/post',
   async (data: string[]) => orderBurgerApi(data)
@@ -11,6 +12,7 @@ export interface OrderState {
   lastOrderName: string;
   isOrderLoading: boolean;
   orderRequest: boolean;
+  orderAccept: boolean;
   error: string | undefined;
 }
 
@@ -19,6 +21,7 @@ export const initialState: OrderState = {
   lastOrderName: '',
   isOrderLoading: false,
   orderRequest: false,
+  orderAccept: false,
   error: ''
 };
 
@@ -42,7 +45,8 @@ export const orderSlice = createSlice({
       })
       .addCase(orderBurger.fulfilled, (state, action) => {
         state.isOrderLoading = false;
-        state.orderRequest = true;
+        state.orderRequest = false;
+        state.orderAccept = true;
         state.orderModalData = action.payload.order;
         state.lastOrderName = action.payload.name;
       });

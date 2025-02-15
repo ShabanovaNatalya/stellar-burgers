@@ -55,9 +55,3 @@ export type TUserBurger = {
 //   mains: string[];
 //   sauces: string;
 // };
-export const enum RequestStatus {
-  Idle = 'Idle',
-  Loading = 'Loading',
-  Success = 'Success',
-  Failed = 'Failed'
-}
