@@ -1,4 +1,3 @@
-import { ingredientsSlice } from './../ingredients/ingredientSlice';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { v4 as uuid } from 'uuid';
 import { TConstructorIngredient, TIngredient } from '@utils-types';
@@ -33,7 +32,6 @@ export const constructorSlices = createSlice({
       state,
       { payload }: PayloadAction<TConstructorIngredient>
     ) => {
-      console.log(111);
       if (payload.type === 'bun') {
         state.bun = null;
       } else {
@@ -73,6 +71,10 @@ export const constructorSlices = createSlice({
         state.ingredients[index + 1],
         state.ingredients[index]
       );
+    },
+    clearConstructorBurger: (state) => {
+      state.bun = null;
+      state.ingredients = [];
     }
   },
   extraReducers: (builder) => {},
@@ -88,7 +90,8 @@ export const {
   handleAddIngredient,
   handleDeleteIngredient,
   handleMoveUpIngredient,
-  handleMoveDownIngredient
+  handleMoveDownIngredient,
+  clearConstructorBurger
 } = constructorSlices.actions;
 
 export const { getIsBurger } = constructorSlices.selectors;
