@@ -11,7 +11,7 @@ import {
   orderBurger
 } from '../../services/slices/order/orderSlices';
 import { getUser } from '../../services/slices/user/userSlice';
-import { Navigate, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 export const BurgerConstructor: FC = () => {
   const dispatch = useDispatch();

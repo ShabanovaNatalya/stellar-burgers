@@ -24,16 +24,14 @@ import { AppHeader, IngredientDetails, Modal, OrderInfo } from '@components';
 import ProtectedRoute from '../ProtectedRoute/protectedRoute';
 import { useDispatch } from '../../services/store';
 import { loadIngredientList } from '../../services/slices/ingredients/ingredientSlice';
-import { checkUserAuth, init } from '../../services/slices/user/userSlice';
-import { loadFeeds } from '../../services/slices/feed/feedSlices';
-import { loadOrders } from '../../services/slices/orders/ordersSlices';
+import { checkUserAuth } from '../../services/slices/user/userSlice';
 
 function App() {
   const location = useLocation();
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const locationState = location.state as { background?: Location };
-  const background = locationState && locationState.background;
+  const backgroundLocation = locationState && locationState.background;
   const orderNumber = useMatch('/feed/:number')?.params.number;
   const onCloseModal = () => navigate(-1);
 
@@ -46,7 +44,7 @@ function App() {
     <>
       <div className={styles.app}>
         <AppHeader />
-        <Routes location={background || location}>
+        <Routes location={backgroundLocation || location}>
           <Route path='/' element={<ConstructorPage />} />
           <Route path='/feed' element={<Feed />} />
           <Route
@@ -134,7 +132,7 @@ function App() {
           />
         </Routes>
 
-        {background && (
+        {backgroundLocation && (
           <Routes>
             <Route
               path='/feed/:number'

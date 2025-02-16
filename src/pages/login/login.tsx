@@ -5,11 +5,17 @@ import {
   getIsAuthChecked,
   loginUser
 } from '../../services/slices/user/userSlice';
+import store from '../../services/store';
 
 export const Login: FC = () => {
   const dispatch = useDispatch();
-  const [email, setEmail] = useState('');
+  const emailLocalStorage = localStorage.getItem('email');
+  const [email, setEmail] = useState(
+    emailLocalStorage ? emailLocalStorage : ''
+  );
   const [password, setPassword] = useState('');
+
+  const errorText = useSelector((store) => store.user.error);
 
   const handleSubmit = (e: SyntheticEvent) => {
     e.preventDefault();
@@ -21,7 +27,7 @@ export const Login: FC = () => {
 
   return (
     <LoginUI
-      errorText=''
+      errorText={errorText ? errorText : ''}
       email={email}
       setEmail={setEmail}
       password={password}

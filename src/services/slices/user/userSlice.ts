@@ -10,13 +10,9 @@ import {
   updateUserApi
 } from '../../../utils/burger-api';
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-
 import { TUser } from '@utils-types';
 import { loginUserApi } from '@api';
 import { setCookie, deleteCookie } from '../../../utils/cookie';
-
-//       "email": "tashka131@mail.ru",987654321
-//       "name": "Natalya"
 
 export const loginUser = createAsyncThunk(
   'user/loginUser',
@@ -24,13 +20,11 @@ export const loginUser = createAsyncThunk(
     await loginUserApi(data).then((data: TAuthResponse) => {
       setCookie('accessToken', data.accessToken);
       localStorage.setItem('refreshToken', data.refreshToken);
+      localStorage.setItem('email', data.user.email);
       return data;
     })
 );
-export const checkUserAuth = createAsyncThunk(
-  'user/checkUserAuth',
-  async () => await getUserApi()
-);
+export const checkUserAuth = createAsyncThunk('user/checkUserAuth', getUserApi);
 
 export const registerUser = createAsyncThunk(
   'user/registerData',
@@ -72,12 +66,14 @@ export const logoutUser = createAsyncThunk(
 export interface UserState {
   isAuthChecked: boolean;
   userData: TUser | null;
+  errorMessage: string | undefined;
   error: string | undefined;
 }
 
 const initialState: UserState = {
   isAuthChecked: false,
   userData: null,
+  errorMessage: '',
   error: undefined
 };
 
@@ -101,6 +97,12 @@ export const userSlice = createSlice({
         state.userData = action.payload.user;
       })
       // Вход
+      .addCase(loginUser.pending, (state, action) => {
+        state.errorMessage = '';
+      })
+      .addCase(loginUser.rejected, (state, action) => {
+        state.errorMessage = action.error.message;
+      })
       .addCase(loginUser.fulfilled, (state, action) => {
         state.userData = action.payload.user;
         state.isAuthChecked = true;
@@ -116,7 +118,6 @@ export const userSlice = createSlice({
       })
       .addCase(logoutUser.fulfilled, (state) => {
         state.userData = null;
-        state.isAuthChecked = false;
       })
       // Отправка почты для смены пароля (проверка на ошибку)
       .addCase(forgotPassword.rejected, (state, action) => {
@@ -137,17 +138,10 @@ export const userSlice = createSlice({
 
   selectors: {
     getUser: (state) => state.userData,
-    getUserData: (state) =>
-      state.userData
-        ? state.userData
-        : {
-            name: '',
-            email: ''
-          },
     getIsAuthChecked: (state) => state.isAuthChecked
   }
 });
 
 export const { init, authCheck } = userSlice.actions;
 
-export const { getUser, getUserData, getIsAuthChecked } = userSlice.selectors;
+export const { getUser, getIsAuthChecked } = userSlice.selectors;

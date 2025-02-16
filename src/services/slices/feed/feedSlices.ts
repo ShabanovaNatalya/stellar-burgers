@@ -2,9 +2,7 @@ import { getFeedsApi } from '@api';
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { TOrder, TOrdersData } from '@utils-types';
 
-export const loadFeeds = createAsyncThunk('feedsList/fetch', async () =>
-  getFeedsApi()
-);
+export const loadFeeds = createAsyncThunk('feedsList/fetch', getFeedsApi);
 
 export interface FeedState {
   feedList: TOrder[];
@@ -55,7 +53,5 @@ export const feedSlice = createSlice({
     getFeedList: (state) => state.feedList
   }
 });
-
-// export const {} = feedSlice.actions;
 
 export const { getFeedData, getFeedList } = feedSlice.selectors;
