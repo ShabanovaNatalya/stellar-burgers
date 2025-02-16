@@ -2,9 +2,7 @@ import { getOrdersApi } from '@api';
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { TOrder } from '@utils-types';
 
-export const loadOrders = createAsyncThunk('ordersList/fetch', async () =>
-  getOrdersApi()
-);
+export const loadOrders = createAsyncThunk('ordersList/fetch', getOrdersApi);
 
 export interface OrdersState {
   ordersList: TOrder[];
@@ -41,7 +39,3 @@ export const ordersSlice = createSlice({
   },
   selectors: {}
 });
-
-// export const {} = ordersSlice.actions;
-
-// export const {} = ordersSlice.selectors;
