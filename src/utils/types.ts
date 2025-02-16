@@ -49,9 +49,3 @@ export type TUserBurger = {
     | undefined;
   ingredients: TConstructorIngredient[];
 };
-
-// export type TUserBurger = {
-//   buns: string;
-//   mains: string[];
-//   sauces: string;
-// };
