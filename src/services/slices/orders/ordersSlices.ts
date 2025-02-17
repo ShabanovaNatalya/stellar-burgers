@@ -37,5 +37,9 @@ export const ordersSlice = createSlice({
         }
       });
   },
-  selectors: {}
+  selectors: {
+    getOrdersList: (state) => state.ordersList
+  }
 });
+
+export const { getOrdersList } = ordersSlice.selectors;

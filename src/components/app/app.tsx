@@ -25,6 +25,7 @@ import ProtectedRoute from '../ProtectedRoute/protectedRoute';
 import { useDispatch } from '../../services/store';
 import { loadIngredientList } from '../../services/slices/ingredients/ingredientSlice';
 import { checkUserAuth } from '../../services/slices/user/userSlice';
+import { loadFeeds } from '../../services/slices/feed/feedSlices';
 
 function App() {
   const location = useLocation();
@@ -38,6 +39,7 @@ function App() {
   useEffect(() => {
     dispatch(loadIngredientList());
     dispatch(checkUserAuth());
+    dispatch(loadFeeds());
   }, [dispatch]);
 
   return (
