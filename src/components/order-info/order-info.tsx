@@ -6,6 +6,7 @@ import { getIngredientsList } from '../../services/slices/ingredients/ingredient
 import { useMatch } from 'react-router-dom';
 import { useSelector } from '../../services/store';
 import { getOrdersList } from '../../services/slices/orders/ordersSlices';
+import { getFeedList } from '../../services/slices/feed/feedSlices';
 
 export const OrderInfo: FC = () => {
   /** TODO: взять переменные orderData и ingredients из стора */
@@ -14,7 +15,10 @@ export const OrderInfo: FC = () => {
     ? Number(useMatch('/feed/:number')?.params.number)
     : Number(useMatch('/profile/orders/:number')?.params.number);
 
-  const orderData = useSelector(getOrdersList).find((item: TOrder) => {
+  const orderData = [
+    ...useSelector(getOrdersList),
+    ...useSelector(getFeedList)
+  ].find((item: TOrder) => {
     if (item.number === orderNumber) {
       return item;
     }
