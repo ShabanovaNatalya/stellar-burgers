@@ -89,15 +89,16 @@ export const userSlice = createSlice({
   extraReducers: (builder) => {
     builder
       // Проверка
-      .addCase(checkUserAuth.rejected, (state) => {
+      .addCase(checkUserAuth.rejected, (state, action) => {
         state.isAuthChecked = true;
+        state.errorMessage = action.error.message;
       })
       .addCase(checkUserAuth.fulfilled, (state, action) => {
         state.isAuthChecked = true;
         state.userData = action.payload.user;
       })
       // Вход
-      .addCase(loginUser.pending, (state, action) => {
+      .addCase(loginUser.pending, (state) => {
         state.errorMessage = '';
       })
       .addCase(loginUser.rejected, (state, action) => {
@@ -145,3 +146,5 @@ export const userSlice = createSlice({
 export const { init, authCheck } = userSlice.actions;
 
 export const { getUser, getIsAuthChecked } = userSlice.selectors;
+
+export const reducer = userSlice.reducer;

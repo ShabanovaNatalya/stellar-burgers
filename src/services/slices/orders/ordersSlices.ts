@@ -43,3 +43,5 @@ export const ordersSlice = createSlice({
 });
 
 export const { getOrdersList } = ordersSlice.selectors;
+
+export const reducer = ordersSlice.reducer;

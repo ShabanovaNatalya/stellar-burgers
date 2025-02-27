@@ -49,3 +49,8 @@ export type TUserBurger = {
     | undefined;
   ingredients: TConstructorIngredient[];
 };
+
+export type TMoveInfo = {
+  from: number;
+  to: number;
+};

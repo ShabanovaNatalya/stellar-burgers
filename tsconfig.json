@@ -26,7 +26,9 @@
       "@api": ["src/utils/burger-api.ts"],
       "@slices": ["src/services/slices"],
       "@selectors": ["src/services/selectors"]
-    }
+    },
+    
   },
-  "include": ["src"]
+  "include": ["src"],
+  "exclude": ["cypress.config.ts", "cypress", "node_modules"]
 }

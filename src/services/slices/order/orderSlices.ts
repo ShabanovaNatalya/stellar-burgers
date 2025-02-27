@@ -56,3 +56,5 @@ export const orderSlice = createSlice({
 });
 
 export const { handleCloseOrderModal } = orderSlice.actions;
+
+export const reducer = orderSlice.reducer;
