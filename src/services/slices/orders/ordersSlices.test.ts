@@ -1,12 +1,8 @@
 import { expect, test } from '@jest/globals';
-import { loadOrders, OrdersState, reducer } from './ordersSlices';
+import { loadOrders, OrdersState, reducer, initialState } from './ordersSlices';
 
 describe('Test OrdersSlice', () => {
-  const initialState: OrdersState = {
-    ordersList: [],
-    isOrdersListsLoading: false,
-    error: ''
-  };
+
 
   test('Тест начального состояния', () => {
     const action = { type: 'UNKNOWN_ACTION' };

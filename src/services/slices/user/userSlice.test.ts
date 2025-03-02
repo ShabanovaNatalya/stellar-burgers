@@ -1,13 +1,13 @@
 import { expect, test } from '@jest/globals';
-import { checkUserAuth, loginUser, reducer, UserState } from './userSlice';
+import {
+  checkUserAuth,
+  loginUser,
+  reducer,
+  UserState,
+  initialState
+} from './userSlice';
 
 describe('Test userSlice', () => {
-  const initialState: UserState = {
-    isAuthChecked: false,
-    userData: null,
-    errorMessage: '',
-    error: undefined
-  };
   const userLoginData = {
     email: 'test1@mail.ru',
     password: 'test'

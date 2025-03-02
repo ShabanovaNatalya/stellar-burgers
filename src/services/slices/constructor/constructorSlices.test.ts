@@ -3,24 +3,17 @@ import {
   handleAddIngredient,
   handleDeleteIngredient,
   reducer,
-  sortIngredients
+  sortIngredients,
+  initialState
 } from './constructorSlices';
 
 describe('Test constructorSlices', () => {
   test('Тест начального состояния', () => {
-    const initialState = {
-      bun: null,
-      ingredients: []
-    };
     const action = { type: 'UNKNOWN_ACTION' };
     const state = reducer(undefined, action);
     expect(state).toEqual(initialState);
   }),
     test('Тест экшена добавления ингредиента (bun)', () => {
-      const initialState = {
-        bun: null,
-        ingredients: []
-      };
       const addIngredient = {
         _id: '643d69a5c3f7b9001cfa093c',
         name: 'Краторная булка N-200i',
@@ -59,11 +52,6 @@ describe('Test constructorSlices', () => {
         image_mobile:
           'https://code.s3.yandex.net/react/code/sauce-01-mobile.png',
         image_large: 'https://code.s3.yandex.net/react/code/sauce-01-large.png'
-      };
-
-      const initialState = {
-        bun: null,
-        ingredients: []
       };
       const newState = reducer(
         initialState,

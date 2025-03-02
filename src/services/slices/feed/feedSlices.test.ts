@@ -1,16 +1,7 @@
 import { expect, test } from '@jest/globals';
-import { FeedState, loadFeeds, reducer } from './feedSlices';
+import { FeedState, loadFeeds, reducer, initialState } from './feedSlices';
 
 describe('Test feedSlices', () => {
-  const initialState: FeedState = {
-    feedList: [],
-    feedListInfo: {
-      total: 0,
-      totalToday: 0
-    },
-    isFeedListsLoading: false,
-    error: ''
-  };
 
   test('Тест начального состояния', () => {
     const action = { type: 'UNKNOWN_ACTION' };

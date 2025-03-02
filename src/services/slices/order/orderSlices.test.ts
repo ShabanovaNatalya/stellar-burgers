@@ -1,16 +1,7 @@
 import { expect, test } from '@jest/globals';
-import { orderBurger, OrderState, reducer } from './orderSlices';
+import { orderBurger, OrderState, reducer, initialState } from './orderSlices';
 
 describe('Test orderSlice', () => {
-  const initialState: OrderState = {
-    orderModalData: null,
-    lastOrderName: '',
-    isOrderLoading: false,
-    orderRequest: false,
-    orderAccept: false,
-    error: ''
-  };
-
   const dataBurger = [
     '643d69a5c3f7b9001cfa093c',
     '643d69a5c3f7b9001cfa0941',

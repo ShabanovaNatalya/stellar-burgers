@@ -70,7 +70,7 @@ export interface UserState {
   error: string | undefined;
 }
 
-const initialState: UserState = {
+export const initialState: UserState = {
   isAuthChecked: false,
   userData: null,
   errorMessage: '',

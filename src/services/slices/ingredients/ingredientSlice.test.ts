@@ -2,19 +2,11 @@ import { expect, test } from '@jest/globals';
 import {
   IngredientsState,
   loadIngredientList,
-  reducer
+  reducer,
+  initialState
 } from './ingredientSlice';
 
 describe('Test ingredientsSlice', () => {
-  const initialState: IngredientsState = {
-    ingredientList: [],
-    buns: [],
-    mains: [],
-    sauces: [],
-    isIngredientsLoading: false,
-    error: ''
-  };
-
   test('Тест начального состояния', () => {
     const action = { type: 'UNKNOWN_ACTION' };
     const state = reducer(undefined, action);
