@@ -8,7 +8,6 @@ import { loadFeeds } from '../../services/slices/feed/feedSlices';
 export const Feed: FC = () => {
   const dispatch: AppDispatch = useDispatch();
   const orders: TOrder[] = useSelector((store) => store.feed.feedList);
-
   const handleLoadOrders = () => {
     dispatch(loadFeeds());
   };
