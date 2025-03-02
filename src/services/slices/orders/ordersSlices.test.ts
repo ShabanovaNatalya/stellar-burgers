@@ -8,17 +8,22 @@ describe('Test OrdersSlice', () => {
     error: ''
   };
 
-  test('Тест загрузки списка заказов pending', () => {
-    const actualState = reducer(initialState, loadOrders.pending(''));
+  test('Тест начального состояния', () => {
+    const action = { type: 'UNKNOWN_ACTION' };
+    const state = reducer(undefined, action);
+    expect(state).toEqual(initialState);
+  }),
+    test('Тест загрузки списка заказов pending', () => {
+      const actualState = reducer(initialState, loadOrders.pending(''));
 
-    const expectedState: OrdersState = {
-      ordersList: [],
-      isOrdersListsLoading: true,
-      error: ''
-    };
+      const expectedState: OrdersState = {
+        ordersList: [],
+        isOrdersListsLoading: true,
+        error: ''
+      };
 
-    expect(actualState).toEqual(expectedState);
-  });
+      expect(actualState).toEqual(expectedState);
+    });
 
   test('Тест загрузки списка заказов rejected', () => {
     const error = new Error('Test error');

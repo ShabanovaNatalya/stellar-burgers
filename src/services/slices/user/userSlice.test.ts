@@ -24,24 +24,28 @@ describe('Test userSlice', () => {
       name: 'Test'
     }
   };
+  test('Тест начального состояния', () => {
+    const action = { type: 'UNKNOWN_ACTION' };
+    const state = reducer(undefined, action);
+    expect(state).toEqual(initialState);
+  }),
+    test('Проверка пользователя rejected', () => {
+      const error = new Error('Test error');
 
-  test('Проверка пользователя rejected', () => {
-    const error = new Error('Test error');
+      const expectedState: UserState = {
+        isAuthChecked: true,
+        userData: null,
+        errorMessage: error.message,
+        error: undefined
+      };
 
-    const expectedState: UserState = {
-      isAuthChecked: true,
-      userData: null,
-      errorMessage: error.message,
-      error: undefined
-    };
+      const actualState = reducer(
+        initialState,
+        checkUserAuth.rejected(error, '')
+      );
 
-    const actualState = reducer(
-      initialState,
-      checkUserAuth.rejected(error, '')
-    );
-
-    expect(actualState).toEqual(expectedState);
-  });
+      expect(actualState).toEqual(expectedState);
+    });
 
   test('Проверка пользователя fulfilled', () => {
     const actualState = reducer(

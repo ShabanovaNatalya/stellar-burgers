@@ -25,7 +25,10 @@ export const BurgerConstructorUI: FC<BurgerConstructorUIProps> = ({
     <>
       <section className={styles.burger_constructor}>
         {constructorItems.bun ? (
-          <div className={`${styles.element} mb-4 mr-4`}>
+          <div
+            className={`${styles.element} mb-4 mr-4`}
+            data-cy='constructor-bun-top'
+          >
             <ConstructorElement
               type='top'
               isLocked
@@ -45,7 +48,11 @@ export const BurgerConstructorUI: FC<BurgerConstructorUIProps> = ({
           {constructorItems.ingredients.length > 0 ? (
             constructorItems.ingredients.map(
               (item: TConstructorIngredient, index: number) => (
-                <div className={`${styles.element_ingredients}`} key={item.id}>
+                <div
+                  className={`${styles.element_ingredients}`}
+                  key={item.id}
+                  data-cy='constructor-main'
+                >
                   <BurgerConstructorElement
                     ingredient={item}
                     index={index}
@@ -63,7 +70,10 @@ export const BurgerConstructorUI: FC<BurgerConstructorUIProps> = ({
           )}
         </ul>
         {constructorItems.bun ? (
-          <div className={`${styles.element} mt-4 mr-4`}>
+          <div
+            className={`${styles.element} mt-4 mr-4`}
+            data-cy='constructor-bun-bottom'
+          >
             <ConstructorElement
               type='bottom'
               isLocked
@@ -89,6 +99,7 @@ export const BurgerConstructorUI: FC<BurgerConstructorUIProps> = ({
             type='primary'
             size='large'
             children='Оформить заказ'
+            data-cy='onOrderButton'
             onClick={onOrderClick}
           />
         </div>

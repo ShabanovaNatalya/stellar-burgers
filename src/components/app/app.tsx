@@ -26,7 +26,6 @@ import ProtectedRoute from '../ProtectedRoute/protectedRoute';
 import store, { useDispatch } from '../../services/store';
 import { loadIngredientList } from '../../services/slices/ingredients/ingredientSlice';
 import { checkUserAuth } from '../../services/slices/user/userSlice';
-import { loadFeeds } from '../../services/slices/feed/feedSlices';
 
 const App = () => (
   <div className={styles.app}>
@@ -49,7 +48,6 @@ const RouteComponent: FC = () => {
   useEffect(() => {
     dispatch(loadIngredientList());
     dispatch(checkUserAuth());
-    dispatch(loadFeeds());
   }, [dispatch]);
 
   return (

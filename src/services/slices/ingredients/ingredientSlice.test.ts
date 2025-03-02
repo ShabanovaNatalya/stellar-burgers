@@ -15,20 +15,25 @@ describe('Test ingredientsSlice', () => {
     error: ''
   };
 
-  test('Тест загрузки списка ингридиентов pending', () => {
-    const actualState = reducer(initialState, loadIngredientList.pending(''));
+  test('Тест начального состояния', () => {
+    const action = { type: 'UNKNOWN_ACTION' };
+    const state = reducer(undefined, action);
+    expect(state).toEqual(initialState);
+  }),
+    test('Тест загрузки списка ингридиентов pending', () => {
+      const actualState = reducer(initialState, loadIngredientList.pending(''));
 
-    const expectedState: IngredientsState = {
-      ingredientList: [],
-      buns: [],
-      mains: [],
-      sauces: [],
-      isIngredientsLoading: true,
-      error: ''
-    };
+      const expectedState: IngredientsState = {
+        ingredientList: [],
+        buns: [],
+        mains: [],
+        sauces: [],
+        isIngredientsLoading: true,
+        error: ''
+      };
 
-    expect(actualState).toEqual(expectedState);
-  });
+      expect(actualState).toEqual(expectedState);
+    });
 
   test('Тест загрузки списка ингридиентов rejected', () => {
     const error = new Error('Test error');

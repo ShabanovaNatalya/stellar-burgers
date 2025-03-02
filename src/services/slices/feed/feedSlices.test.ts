@@ -12,20 +12,25 @@ describe('Test feedSlices', () => {
     error: ''
   };
 
-  test('Тест загрузки списка общих заказов pending', () => {
-    const actualState = reducer(initialState, loadFeeds.pending(''));
-    const expectedState: FeedState = {
-      feedList: [],
-      feedListInfo: {
-        total: 0,
-        totalToday: 0
-      },
-      isFeedListsLoading: true,
-      error: ''
-    };
+  test('Тест начального состояния', () => {
+    const action = { type: 'UNKNOWN_ACTION' };
+    const state = reducer(undefined, action);
+    expect(state).toEqual(initialState);
+  }),
+    test('Тест загрузки списка общих заказов pending', () => {
+      const actualState = reducer(initialState, loadFeeds.pending(''));
+      const expectedState: FeedState = {
+        feedList: [],
+        feedListInfo: {
+          total: 0,
+          totalToday: 0
+        },
+        isFeedListsLoading: true,
+        error: ''
+      };
 
-    expect(actualState).toEqual(expectedState);
-  });
+      expect(actualState).toEqual(expectedState);
+    });
 
   test('Тест загрузки списка общих заказов rejected', () => {
     const error = new Error('Test error');

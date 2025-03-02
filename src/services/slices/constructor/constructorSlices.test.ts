@@ -1,3 +1,4 @@
+import { expect } from '@jest/globals';
 import {
   handleAddIngredient,
   handleDeleteIngredient,
@@ -6,32 +7,44 @@ import {
 } from './constructorSlices';
 
 describe('Test constructorSlices', () => {
-  test('Тест экшена добавления ингредиента (bun)', () => {
+  test('Тест начального состояния', () => {
     const initialState = {
       bun: null,
       ingredients: []
     };
-    const addIngredient = {
-      _id: '643d69a5c3f7b9001cfa093c',
-      name: 'Краторная булка N-200i',
-      type: 'bun',
-      proteins: 80,
-      fat: 24,
-      carbohydrates: 53,
-      calories: 420,
-      price: 1255,
-      image: 'https://code.s3.yandex.net/react/code/bun-02.png',
-      image_mobile: 'https://code.s3.yandex.net/react/code/bun-02-mobile.png',
-      image_large: 'https://code.s3.yandex.net/react/code/bun-02-large.png'
-    };
-
-    const newState = reducer(initialState, handleAddIngredient(addIngredient));
-
-    const { bun, ingredients } = newState;
-
-    expect(bun).toEqual({ ...addIngredient, id: expect.any(String) });
-    expect(ingredients).toEqual([]);
+    const action = { type: 'UNKNOWN_ACTION' };
+    const state = reducer(undefined, action);
+    expect(state).toEqual(initialState);
   }),
+    test('Тест экшена добавления ингредиента (bun)', () => {
+      const initialState = {
+        bun: null,
+        ingredients: []
+      };
+      const addIngredient = {
+        _id: '643d69a5c3f7b9001cfa093c',
+        name: 'Краторная булка N-200i',
+        type: 'bun',
+        proteins: 80,
+        fat: 24,
+        carbohydrates: 53,
+        calories: 420,
+        price: 1255,
+        image: 'https://code.s3.yandex.net/react/code/bun-02.png',
+        image_mobile: 'https://code.s3.yandex.net/react/code/bun-02-mobile.png',
+        image_large: 'https://code.s3.yandex.net/react/code/bun-02-large.png'
+      };
+
+      const newState = reducer(
+        initialState,
+        handleAddIngredient(addIngredient)
+      );
+
+      const { bun, ingredients } = newState;
+
+      expect(bun).toEqual({ ...addIngredient, id: expect.any(String) });
+      expect(ingredients).toEqual([]);
+    }),
     test('Тест экшена добавления ингредиента (ingredients)', () => {
       const addIngredient = {
         _id: '643d69a5c3f7b9001cfa0945',

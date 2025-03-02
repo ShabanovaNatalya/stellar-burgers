@@ -29,6 +29,12 @@
     },
     
   },
-  "include": ["src"],
-  "exclude": ["cypress.config.ts", "cypress", "node_modules"]
+  "include": [
+    "src/**/*", // Все файлы в папке src
+    "cypress/**/*" // Все файлы в папке cypress
+  ],
+  "exclude": [
+    "node_modules",
+    "cypress.config.ts"
+  ]
 }
