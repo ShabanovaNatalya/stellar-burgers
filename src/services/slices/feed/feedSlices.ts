@@ -10,7 +10,6 @@ export interface FeedState {
     total: number;
     totalToday: number;
   };
-  feedData: TOrdersData | null;
   isFeedListsLoading: boolean;
   error: string | undefined;
 }
@@ -21,7 +20,6 @@ export const initialState: FeedState = {
     total: 0,
     totalToday: 0
   },
-  feedData: null,
   isFeedListsLoading: false,
   error: ''
 };
@@ -49,9 +47,10 @@ export const feedSlice = createSlice({
       });
   },
   selectors: {
-    getFeedData: (state) => state.feedData,
     getFeedList: (state) => state.feedList
   }
 });
 
-export const { getFeedData, getFeedList } = feedSlice.selectors;
+export const { getFeedList } = feedSlice.selectors;
+
+export const reducer = feedSlice.reducer;

@@ -6,7 +6,6 @@ import { BurgerIngredientsUI } from '../ui/burger-ingredients';
 import { useSelector } from '../../services/store';
 
 export const BurgerIngredients: FC = () => {
-  /** TODO: взять переменные из стора */
   const buns = useSelector((store) => store.ingredients.buns);
   const mains = useSelector((store) => store.ingredients.mains);
   const sauces = useSelector((store) => store.ingredients.sauces);
